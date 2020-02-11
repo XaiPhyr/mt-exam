@@ -2,19 +2,26 @@
 
 class MainController
 {
+    function webpage($body)
+    {
+        include("views/header.php");
+        include("views/" . $body);
+        include("views/footer.php");
+    }
+
     function index()
     {
-        include("views/index.php");
+        $this->webpage("home/index.php");
     }
 
     function main_xml()
     {
-        include("views/main_xml.php");
+        include("views/xml/main_xml.php");
     }
 
     function main_json()
     {
-        include("views/main_json.php");
+        include("views/json/main_json.php");
     }
 }
 
