@@ -14,6 +14,11 @@ class MainController
         $this->webpage("home/index.php");
     }
 
+    function countrylist()
+    {
+        $this->webpage("home/countrylist.php");
+    }
+
     function main_xml()
     {
         include("views/xml/main_xml.php");

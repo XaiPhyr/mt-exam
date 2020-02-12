@@ -18,7 +18,6 @@
     <div class="card mb-5">
         <div class="card-body mx-auto">
             <a href="index.php" class="mx-5">Home</a>
-            <a href="?page=json" class="mx-5">JSON</a>
-            <a href="?page=xml" class="mx-5">XML</a>
+            <a href="?page=countrylist" class="mx-5">Country List</a>
         </div>
     </div>

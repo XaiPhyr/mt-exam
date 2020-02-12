@@ -1,38 +1,40 @@
 <?php
-$results = file_get_contents("http://restcountries.eu/rest/v2/all");
-
-$decoded = json_decode($results, true);
+$domOBJ = new DOMDocument();
+$domOBJ->load("https://link.springer.com/search.rss?facet-content-type=%22Article%22&facet-journal-id=11111&sortOrder=newestFirst");
 ?>
 
-<div class="container">
-    <div class="card">
-        <div class="card-header">
-            <span class="h3" style="text-align: center">Countries</span>
-        </div>
+<div class="container col-9">
+    <div class="card col-5 mb-2 mx-auto">
         <div class="card-body">
-            <table class="table table-hover table-sm">
-                <thead class="thead-dark">
-                    <tr>
-                        <th width="40%">Name</th>
-                        <th width="25%">Capital</th>
-                        <th width="15%">Region</th>
-                        <th width="10%">Code</th>
-                        <th width="5%">Population</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <?php foreach ($decoded as $item) { ?>
-                        <tr>
-                            <td><?php echo $item["name"] ?></td>
-                            <td><?php echo $item["capital"] ?></td>
-                            <td><?php echo $item["region"] ?></td>
-                            <td><?php echo $item["alpha3Code"] ?></td>
-                            <td><?php echo number_format($item["population"], 0, '', ',') ?></td>
-                        </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
+            <div class="h1 text-center">Population & Environment</div>
         </div>
     </div>
+
+    <?php
+    $content = $domOBJ->getElementsByTagName("item");
+
+    foreach ($content as $data) {
+        $title = $data->getElementsByTagName("title")->item(0)->nodeValue;
+        $description = $data->getElementsByTagName("description")->item(0)->nodeValue;
+        $link = $data->getElementsByTagName("link")->item(0)->nodeValue;
+        $date = $data->getElementsByTagName("pubDate")->item(0)->nodeValue;
+    ?>
+
+        <div class="row mb-3">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="h4"><strong><?php echo $title ?></strong></span>
+                    </div>
+                    <div class="card-body">
+                        <span><?php echo $description ?></span>
+                        <span style="float:right" class="text-muted">
+                            <?php echo $date ?>
+                        </span>
+                        <span>Link: <a href="<?php echo $link ?>" target="_blank"><?php echo $link ?></a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php } ?>
 </div>

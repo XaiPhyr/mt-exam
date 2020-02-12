@@ -6,6 +6,11 @@ switch ($_GET['page']) {
         $main->index();
         break;
 
+    case 'countrylist':
+        include("controllers/main.php");
+        $main->countrylist();
+        break;
+
     case 'xml':
         include("controllers/main.php");
         $main->main_xml();
