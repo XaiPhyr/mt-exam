@@ -30,6 +30,15 @@ if ($_POST['region']) {
 }
 
 $decoded = json_decode($results, true);
+$total = 0;
+
+foreach ($decoded as $item) {
+    if ($total > $item["population"]) {
+        $total = $total;
+    } else {
+        $total = $item["population"];
+    }
+}
 ?>
 
 <div class="container">
@@ -48,6 +57,21 @@ $decoded = json_decode($results, true);
                         <button class="btn btn-primary" name="region" value="oceania">Oceania</button>
                         <button class="btn btn-primary" name="region" value="africa">Africa</button>
                     </form>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-3">
+                    <?php foreach ($decoded as $item) {
+                        if ($item["population"] == $total) { ?>
+                            <div class="card">
+                                <div class="card-body">
+                                    <span>Highest Population: </span>
+                                    <br>
+                                    <div><strong><?php echo $item["name"] ?></strong> - <?php echo number_format($item["population"], 0, '', ',') ?></div>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    <?php } ?>
                 </div>
             </div>
             <div class="row">
